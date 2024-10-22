@@ -68,7 +68,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
         )}
         <Link 
           href={page.slug || '#'} 
-          className={`flex-1 ${isActive ? 'font-medium' : 'hover:text-blue-600 hover:bg-gray-300'}`}
+          className={`flex-1 ${isActive ? 'font-medium' : 'hover:text-blue-600'}`}
         >
           {page.title || 'Untitled'}
         </Link>
