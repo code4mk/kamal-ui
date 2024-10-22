@@ -1,0 +1,85 @@
+---
+title: "Kamal is Here"
+description: "An example MDX file with a Markdown table and an Accordion component."
+---
+
+
+# Getting Started 2025
+
+
+
+Welcome to our documentation! This guide will help you get up and running quickly.
+
+## Installation
+
+First, install the package using npm:
+
+```bash
+npm install our-package
+```
+
+## Basic Usage
+
+Here's a simple example of how to use our package:
+
+```javascript
+import { doSomething } from 'our-package';
+
+doSomething();
+```
+
+## Next Steps
+
+Now that you've got the basics, check out our [Advanced Topics](/docs/advanced-topics) for more in-depth information.
+
+
+# Example of a Markdown Table 21
+
+| Column 1   | Column 2   | Column 3   |
+|------------|------------|------------|
+| Row 1 Col 1| Row 1 Col 2| Row 1 Col 3|
+| Row 2 Col 1| Row 2 Col 2| Row 2 Col 3|
+| Row 3 Col 1| Row 3 Col 2| Row 3 Col 3|
+
+<AccordionGroup>
+  <Accordion title="Section 1">
+    <p>Content for section 1</p>
+  </Accordion>
+  <Accordion title="Section 2">
+    <p>Content for section 2</p>
+  </Accordion>
+</AccordionGroup>
+
+<CalloutBox type="info" title="Important Note">
+        This is an example of how to use various components in your documentation.
+</CalloutBox>
+
+
+
+
+<ResponsiveLayout>
+  <Login/>
+</ResponsiveLayout>
+
+<ResponsiveLayout>
+  <Login2/>
+</ResponsiveLayout>
+
+
+<CodeGroup>
+    <CodeBlock
+      language="typescript" 
+      title="Login.tsx"
+      maxHeight={200}
+      content_file_path="/code/abc.txt"
+      showLineNumbers
+    />
+    <CodeBlock
+      language="typescript" 
+      title="HowImplement.tsx"
+      maxHeight={200}
+      content_file_path="/code/abc_how.txt"
+      showLineNumbers
+    />
+</CodeGroup>
+

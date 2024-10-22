@@ -1,0 +1,85 @@
+// CodeBlock.module.css
+export const styles = `
+.codeBlock {
+  @apply rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm transition-all duration-200 ease-in-out hover:shadow-md;
+}
+
+.header {
+  @apply flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-gray-200;
+}
+
+.languageTag {
+  @apply text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600;
+}
+
+.copyButton {
+  @apply flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors;
+}
+
+.collapseButton {
+  @apply rounded-md p-1.5 text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors;
+}
+
+.pre {
+  @apply !bg-white !m-0 text-sm overflow-x-auto;
+}
+
+.code {
+  @apply !bg-white;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  color: #24292e;
+  tab-size: 2;
+}
+
+/* GitHub-like syntax highlighting */
+.code :global(.token.comment),
+.code :global(.token.prolog),
+.code :global(.token.doctype),
+.code :global(.token.cdata) {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.code :global(.token.string),
+.code :global(.token.attr-value) {
+  color: #032f62;
+}
+
+.code :global(.token.punctuation),
+.code :global(.token.operator) {
+  color: #24292e;
+}
+
+.code :global(.token.entity),
+.code :global(.token.url),
+.code :global(.token.symbol),
+.code :global(.token.number),
+.code :global(.token.boolean),
+.code :global(.token.variable),
+.code :global(.token.constant),
+.code :global(.token.property),
+.code :global(.token.regex),
+.code :global(.token.inserted) {
+  color: #005cc5;
+}
+
+.code :global(.token.atrule),
+.code :global(.token.keyword),
+.code :global(.token.attr-name) {
+  color: #d73a49;
+}
+
+.code :global(.token.function),
+.code :global(.token.deleted) {
+  color: #6f42c1;
+}
+
+.code :global(.token.tag),
+.code :global(.token.selector) {
+  color: #22863a;
+}
+
+.lineNumbers {
+  @apply border-r border-gray-200 pr-4 text-gray-400 select-none;
+}
+`;
