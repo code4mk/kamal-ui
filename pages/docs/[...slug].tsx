@@ -1,11 +1,13 @@
+// pages/docs/[...slug].tsx
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
-import fs from 'fs'
-import path from 'path'
 import remarkGfm from 'remark-gfm'
 import matter from 'gray-matter'
 import dynamic from 'next/dynamic'
+import path from 'path'
+// Server-side only imports
+import { getAllMdxFiles, DOCS_DIRECTORY } from '@/utils/mdxUtils'
 
 import { Accordion, AccordionGroup } from '@/mdx_components/Accordion'
 import { CalloutBox } from '@/mdx_components/CalloutBox'
@@ -15,6 +17,7 @@ import { Tabs, TabPanel } from '@/mdx_components/Tabs'
 import { Tooltip } from '@/mdx_components/Tooltip'
 import ResponsiveLayout from '@/mdx-components/ResponsiveLayout'
 
+// This should be determined at build time
 const presetComponentsDir = path.join(process.cwd(), 'components', 'preset')
 
 interface DocPageProps {
@@ -24,20 +27,19 @@ interface DocPageProps {
     description?: string
     [key: string]: any
   }
-  dynamicComponentNames: string[] // Dynamic components passed from getStaticProps
+  dynamicComponentNames: string[]
 }
 
 const DocPage: React.FC<DocPageProps> = ({ source, frontMatter, dynamicComponentNames }) => {
-  // Dynamically load each component
   const dynamicComponents = dynamicComponentNames.reduce((components, componentName) => {
     components[componentName] = dynamic(() =>
-      import(`@/components/preset/${componentName}`).catch(() => null), // Handle failed imports gracefully
+      import(`@/components/preset/${componentName}`).catch(() => null)
     )
     return components
   }, {} as Record<string, any>)
 
-  const tcomponents = {
-    ...dynamicComponents, // Dynamically loaded components
+  const components = {
+    ...dynamicComponents,
     Accordion,
     AccordionGroup,
     CalloutBox,
@@ -48,7 +50,7 @@ const DocPage: React.FC<DocPageProps> = ({ source, frontMatter, dynamicComponent
     Tabs,
     TabPanel,
     Tooltip,
-  ResponsiveLayout,
+    ResponsiveLayout,
     h1: (props: any) => <h1 className="text-4xl font-bold mb-6 text-gray-900" {...props} />,
     h2: (props: any) => <h2 className="text-3xl font-semibold mb-5 text-gray-900" {...props} />,
     h3: (props: any) => <h3 className="text-2xl font-medium mb-4 text-gray-900" {...props} />,
@@ -63,20 +65,25 @@ const DocPage: React.FC<DocPageProps> = ({ source, frontMatter, dynamicComponent
 
   return (
     <>
-      {frontMatter.title && <h1>{frontMatter.title}</h1>}
-      {frontMatter.description && <p>{frontMatter.description}</p>}
-      <MDXRemote components={tcomponents} {...source} />
+      {/* {frontMatter.title && <h1>{frontMatter.title}</h1>}
+      {frontMatter.description && <p>{frontMatter.description}</p>} */}
+      <MDXRemote components={components} {...source} />
     </>
   )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync(path.join('docs'))
-  const paths = files.map((filename) => ({
-    params: {
-      slug: filename.replace('.mdx', '').split('/'),
-    },
-  }))
+  // Using fs only in server-side function
+  const mdxFiles = getAllMdxFiles(DOCS_DIRECTORY)
+  
+  const paths = mdxFiles.map(filePath => {
+    const relativePath = path.relative(DOCS_DIRECTORY, filePath)
+    const slug = relativePath.replace(/\.mdx$/, '').split(path.sep)
+    
+    return {
+      params: { slug }
+    }
+  })
 
   return {
     paths,
@@ -86,28 +93,35 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params as { slug: string[] }
-  const filePath = path.join('docs', `${slug.join('/')}.mdx`)
-  const source = fs.readFileSync(filePath, 'utf8')
+  const filePath = path.join(DOCS_DIRECTORY, `${slug.join('/')}.mdx`)
+  
+  try {
+    // Using fs only in server-side function
+    const source = require('fs').readFileSync(filePath, 'utf8')
+    const { content, data } = matter(source)
+    const mdxSource = await serialize(content, {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+      },
+    })
 
-  const { content, data } = matter(source)
-  const mdxSource = await serialize(content, {
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-    },
-  })
+    const dynamicComponentNames = require('fs')
+      .readdirSync(presetComponentsDir)
+      .filter((file: string) => file.endsWith('.tsx'))
+      .map((file: string) => file.replace('.tsx', ''))
 
-  // Get all component filenames inside the preset directory
-  const dynamicComponentNames = fs
-    .readdirSync(presetComponentsDir)
-    .filter((file) => file.endsWith('.tsx')) // Only get .tsx files
-    .map((file) => file.replace('.tsx', '')) // Remove the extension from filenames
-
-  return {
-    props: {
-      source: mdxSource,
-      frontMatter: data,
-      dynamicComponentNames, // Pass component names to the page
-    },
+    return {
+      props: {
+        source: mdxSource,
+        frontMatter: data,
+        dynamicComponentNames,
+      },
+    }
+  } catch (error) {
+    console.error(`Error processing MDX file: ${filePath}`, error)
+    return {
+      notFound: true,
+    }
   }
 }
 

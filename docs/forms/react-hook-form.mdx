@@ -1,0 +1,48 @@
+---
+title: "React Hook Form: Quick Setup with Yup and React Select"
+description: "Learn how to integrate React Hook Form with Yup validation in a practical product entry form example."
+---
+
+# React Hook Form: Quick Setup with Yup and React Select
+
+React Hook Form is a lightweight library that simplifies form handling in React. In this guide, we’ll walk through setting it up with Yup for validation and React Select for dropdowns.
+
+## Installation
+
+First, install the required packages:
+
+```bash
+pnpm install react-hook-form @hookform/resolvers yup react-select
+```
+
+# demo
+
+<ResponsiveLayout>
+  <FormProductEntry/>
+</ResponsiveLayout>
+
+# code 
+
+<CodeGroup>
+    <CodeBlock
+      language="typescript" 
+      title="yupSchema.ts"
+      maxHeight={200}
+      content_file_path="/code/form/product-entry-yup-schema.txt"
+      showLineNumbers
+    />
+    <CodeBlock
+      language="typescript" 
+      title="ProductEntryForm.tsx"
+      maxHeight={200}
+      content_file_path="/code/form/product-entry-form.txt"
+      showLineNumbers
+    />
+    <CodeBlock
+      language="typescript" 
+      title="HowImplement.tsx"
+      maxHeight={200}
+      content_file_path="/code/form/product-entry-form-how.txt"
+      showLineNumbers
+    />
+</CodeGroup>

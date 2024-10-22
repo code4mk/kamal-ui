@@ -7,6 +7,18 @@ interface Page {
 
 const pages: Page[] = [
   {
+    title: "Forms",
+    slug: "#",
+    has_child: true,
+    sub_pages: [
+      {
+        title: "react hook form",
+        slug: "/docs/forms/react-hook-form",
+        has_child: false
+      },
+    ]
+  },
+  {
     title: "Getting Started",
     slug: "#",
     has_child: true,
