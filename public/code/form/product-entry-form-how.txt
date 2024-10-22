@@ -1,4 +1,4 @@
-import ProductEntryForm from "./form/ProductEntryForm";
+import ProductEntryForm from "./ProductEntryForm";
 
 function FormProductEntry() {
   return <ProductEntryForm/>

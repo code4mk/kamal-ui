@@ -1,3 +1,4 @@
+// ProductEntryForm.tsx
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Select from 'react-select';
@@ -15,6 +16,7 @@ interface ProductFormData {
 }
 
 const statusOptions = [
+  { value: '', label: 'select option' },
   { value: 'active', label: 'Active' },
   { value: 'draft', label: 'Draft' },
   { value: 'archived', label: 'Archived' }
@@ -170,7 +172,7 @@ const ProductEntryForm = () => {
               options={statusOptions}
               value={statusOptions.find(option => option.value === currentStatus)}
               onChange={(option) => {
-                setValue('status', option?.value || 'active');
+                setValue('status', option?.value || '');
                 trigger('status');
               }}
               className={`${errors.status ? 'border-red-500' : ''}`}

@@ -1,4 +1,3 @@
-// pages/docs/[...slug].tsx
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -8,7 +7,7 @@ import dynamic from 'next/dynamic'
 import path from 'path'
 // Server-side only imports
 import { getAllMdxFiles, DOCS_DIRECTORY } from '@/utils/mdxUtils'
-
+import {Helmet} from "react-helmet";
 import { Accordion, AccordionGroup } from '@/mdx_components/Accordion'
 import { CalloutBox } from '@/mdx_components/CalloutBox'
 import { Card, CardGroup } from '@/mdx_components/Card'
@@ -65,6 +64,10 @@ const DocPage: React.FC<DocPageProps> = ({ source, frontMatter, dynamicComponent
 
   return (
     <>
+      <Helmet>
+        <title>{frontMatter?.title}</title>
+        <meta name="description" content={frontMatter?.description} />
+    </Helmet>
       {/* {frontMatter.title && <h1>{frontMatter.title}</h1>}
       {frontMatter.description && <p>{frontMatter.description}</p>} */}
       <MDXRemote components={components} {...source} />
