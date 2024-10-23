@@ -1,8 +1,8 @@
 // ProductEntryForm.tsx
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import Select from 'react-select';
 import productEntrySchema from '@/utils/yup/ProductEntrySchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import Select from 'react-select';
 
 interface ProductFormData {
   name: string;
@@ -80,7 +80,7 @@ const ProductEntryForm = () => {
             <input
               {...register('name')}
               type="text"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 ${
                 errors.name ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder="Enter product name"
@@ -98,7 +98,7 @@ const ProductEntryForm = () => {
             <input
               {...register('sku')}
               type="text"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 ${
                 errors.sku ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder="Enter SKU"
@@ -117,7 +117,7 @@ const ProductEntryForm = () => {
               {...register('price')}
               type="number"
               step="0.01"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 ${
                 errors.price ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder="0.00"
@@ -135,7 +135,7 @@ const ProductEntryForm = () => {
             <input
               {...register('stockQuantity')}
               type="number"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 ${
                 errors.stockQuantity ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder="0"
@@ -153,7 +153,7 @@ const ProductEntryForm = () => {
             <input
               {...register('brand')}
               type="text"
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 ${
                 errors.brand ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder="Enter brand name"
@@ -192,7 +192,7 @@ const ProductEntryForm = () => {
           <input
             {...register('category')}
             type="text"
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 ${
               errors.category ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter category"
@@ -210,7 +210,7 @@ const ProductEntryForm = () => {
           <textarea
             {...register('description')}
             rows={4}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600 ${
               errors.description ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter product description"
@@ -223,7 +223,7 @@ const ProductEntryForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+          className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none  ${
             isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
