@@ -1,0 +1,7 @@
+import MultiRawMultiple from "./MultiRawMultiple"
+
+function CardsMultiRawMultiple() {
+  return <MultiRawMultiple/>
+}
+
+export default CardsMultiRawMultiple

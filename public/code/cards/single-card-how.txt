@@ -1,0 +1,7 @@
+import SingleCard from "./SingleCard"
+
+function CardsSingle() {
+  return <SingleCard/>
+}
+
+export default CardsSingle

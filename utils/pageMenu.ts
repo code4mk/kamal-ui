@@ -19,6 +19,28 @@ const pages: Page[] = [
     ]
   },
   {
+    title: "Cards",
+    slug: "#",
+    has_child: true,
+    sub_pages: [
+      {
+        title: "single card",
+        slug: "/docs/cards/single",
+        has_child: false
+      },
+      {
+        title: "multiple cards",
+        slug: "/docs/cards/multiple",
+        has_child: false
+      },
+      {
+        title: "multiple raw cards",
+        slug: "/docs/cards/multiple-raw",
+        has_child: false
+      },
+    ]
+  },
+  {
     title: "Getting Started",
     slug: "#",
     has_child: true,
