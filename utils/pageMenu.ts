@@ -41,6 +41,18 @@ const pages: Page[] = [
     ]
   },
   {
+    title: "Modals",
+    slug: "#",
+    has_child: true,
+    sub_pages: [
+      {
+        title: "modals",
+        slug: "/docs/modal/modals",
+        has_child: false
+      }
+    ]
+  },
+  {
     title: "Table",
     slug: "#",
     has_child: true,

@@ -15,6 +15,7 @@ interface ProductFormData {
   status: string;
 }
 
+
 const statusOptions = [
   { value: '', label: 'select option' },
   { value: 'active', label: 'Active' },
