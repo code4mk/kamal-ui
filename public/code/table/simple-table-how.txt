@@ -1,0 +1,11 @@
+import SimpleTable from "./table/SimpleTable"
+
+function SimpleTableUI() {
+  return (
+    <div>
+      <SimpleTable/>
+    </div>
+  )
+}
+
+export default SimpleTableUI

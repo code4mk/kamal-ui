@@ -53,6 +53,18 @@ const pages: Page[] = [
     ]
   },
   {
+    title: "Table",
+    slug: "#",
+    has_child: true,
+    sub_pages: [
+      {
+        title: "Simple table",
+        slug: "/docs/table/simple-table",
+        has_child: false
+      }
+    ]
+  },
+  {
     title: "Getting Started",
     slug: "#",
     has_child: true,
