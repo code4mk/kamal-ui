@@ -1,4 +1,4 @@
-import MultipleCards from "./cards/MultipleCards"
+import MultipleCards from "@/components/preset/cards/MultipleCards"
 
 function CardsMultiple() {
   return <MultipleCards/>

@@ -7,7 +7,7 @@ function MultiRawMultiple() {
         <div className="w-full md:flex-1 bg-white rounded-lg border border-gray-200">
           <div className="p-4 md:p-6">
             <h2 className="text-xl font-semibold text-gray-800">Create project</h2>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 mt-1 md:text-red ">
               Deploy your new project in one-click.
             </p>
           </div>

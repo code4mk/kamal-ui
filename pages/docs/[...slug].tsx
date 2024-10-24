@@ -14,7 +14,8 @@ import { Card, CardGroup } from '@/mdx_components/Card'
 import { CodeBlock, CodeGroup } from '@/mdx_components/Code'
 import { Tabs, TabPanel } from '@/mdx_components/Tabs'
 import { Tooltip } from '@/mdx_components/Tooltip'
-import ResponsiveLayout from '@/mdx-components/ResponsiveLayout'
+import DemoPreview from '@/mdx-components/DemoPreview'
+import DocLayout from '@/components/DocLayout';
 
 // This should be determined at build time
 const presetComponentsDir = path.join(process.cwd(), 'components', 'preset')
@@ -49,7 +50,7 @@ const DocPage: React.FC<DocPageProps> = ({ source, frontMatter, dynamicComponent
     Tabs,
     TabPanel,
     Tooltip,
-    ResponsiveLayout,
+    DemoPreview,
     h1: (props: any) => <h1 className="text-4xl font-bold mb-6 text-gray-900" {...props} />,
     h2: (props: any) => <h2 className="text-3xl font-semibold mb-5 text-gray-900" {...props} />,
     h3: (props: any) => <h3 className="text-2xl font-medium mb-4 text-gray-900" {...props} />,
@@ -63,7 +64,7 @@ const DocPage: React.FC<DocPageProps> = ({ source, frontMatter, dynamicComponent
   }
 
   return (
-    <>
+    <DocLayout>
       <Helmet>
         <title>{frontMatter?.title}</title>
         <meta name="description" content={frontMatter?.description} />
@@ -71,7 +72,7 @@ const DocPage: React.FC<DocPageProps> = ({ source, frontMatter, dynamicComponent
       {/* {frontMatter.title && <h1>{frontMatter.title}</h1>}
       {frontMatter.description && <p>{frontMatter.description}</p>} */}
       <MDXRemote components={components} {...source} />
-    </>
+    </DocLayout>
   )
 }
 

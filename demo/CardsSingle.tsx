@@ -1,4 +1,4 @@
-import SingleCard from "./cards/SingleCard"
+import SingleCard from "@/components/preset/cards/SingleCard"
 
 function CardsSingle() {
   return <SingleCard/>

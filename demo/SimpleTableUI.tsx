@@ -1,4 +1,4 @@
-import SimpleTable from "./table/SimpleTable"
+import SimpleTable from "@/components/preset/table/SimpleTable"
 
 
 function SimpleTableUI() {

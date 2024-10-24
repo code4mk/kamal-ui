@@ -1,4 +1,4 @@
-import ProductEntryForm from "./form/ProductEntryForm";
+import ProductEntryForm from "@/components/preset/form/ProductEntryForm";
 
 function FormProductEntry() {
   return <ProductEntryForm/>

@@ -44,6 +44,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.53.1
     version: 7.53.1(react@18.3.1)
+  react-iframe:
+    specifier: ^1.8.5
+    version: 1.8.5(react@18.3.1)
   react-select:
     specifier: ^5.8.1
     version: 5.8.1(@types/react@18.3.11)(react-dom@18.3.1)(react@18.3.1)
@@ -3741,6 +3744,15 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
+      react: 18.3.1
+    dev: false
+
+  /react-iframe@1.8.5(react@18.3.1):
+    resolution: {integrity: sha512-F4cQJGs3ydaG6fJWfuz9yLwOU0Trzl6kttXuUG+vYwosH8enOOFxZWEDQCSbNVO8ayjfYZeqLxEvdvcsSy4GvA==}
+    peerDependencies:
+      react: '>=16.x.x'
+    dependencies:
+      object-assign: 4.1.1
       react: 18.3.1
     dev: false
 
