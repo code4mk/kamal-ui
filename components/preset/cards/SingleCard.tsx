@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plus, Upload } from 'lucide-react';
 
 function SingleCard() {
@@ -6,7 +5,7 @@ function SingleCard() {
     <div className="p-4 md:p-6">
       {/* Single Card */}
       <div className="w-full bg-white rounded-lg border border-gray-200">
-        <div className="p-4 md:p-6 flex justify-between items-start">
+        <div className="p-4 md:p-6 flex flex-wrap space-y-4 md:space-y-0 justify-between items-start">
           <div>
             <h2 className="text-xl font-semibold text-gray-800">Create project</h2>
             <p className="text-sm text-gray-500 mt-1">
