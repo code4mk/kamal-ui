@@ -1,8 +1,7 @@
-import { useModalManager } from "@/utils/useModalManager"
-import { useState } from "react";
+import ConfirmationModal from "@/components/preset/modals/ConfirmationModal";
 import ProductEntryModal from "@/components/preset/modals/ProductEntryModal";
 import { MODAL_NAMES } from "@/constants/modal";
-import ConfirmationModal from "@/components/preset/modals/ConfirmationModal";
+import { useModalManager } from "@/utils/useModalManager";
 
 export default function ProductManager() {
   const { modals, openModal, closeModal } = useModalManager(Object.values(MODAL_NAMES));
@@ -18,7 +17,7 @@ export default function ProductManager() {
   };
 
   return (
-    <div>
+    <div className="m-4">
       <div className="flex gap-3">
         <button
           onClick={() => openModal(MODAL_NAMES.PRODUCT_ENTRY)}
