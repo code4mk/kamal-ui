@@ -7,6 +7,18 @@ interface Page {
 
 const pages: Page[] = [
   {
+    title: "Buttons",
+    slug: "#",
+    has_child: true,
+    sub_pages: [
+      {
+        title: "buttons design",
+        slug: "/docs/buttons/buttons",
+        has_child: false
+      },
+    ]
+  },
+  {
     title: "Forms",
     slug: "#",
     has_child: true,
