@@ -1,7 +1,12 @@
 import MultipleCards from "@/components/preset/cards/MultipleCards"
 
 function CardsMultiple() {
-  return <MultipleCards/>
+  return (
+    <div className="mt-4 mb-4">
+      <MultipleCards />
+    </div>
+  )
 }
+  
 
 export default CardsMultiple
