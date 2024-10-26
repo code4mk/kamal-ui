@@ -28,6 +28,10 @@ import {
   Heart,
   Star,
   Linkedin,
+  Instagram,
+  Youtube,
+  MessageCircle,
+  MessageSquare,
 } from "lucide-react";
 
 const ButtonCard = ({ title, children }) => (
@@ -109,9 +113,9 @@ const ButtonCollection = () => {
               <Github className="w-4 h-4" />
               <span>Github</span>
             </button>
-            <button className="px-4 py-2 bg-[#1DA1F2] text-white rounded-lg hover:bg-blue-600 font-medium inline-flex items-center space-x-2">
-              <Twitter className="w-4 h-4" />
-              <span>Twitter</span>
+            <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 font-medium inline-flex items-center space-x-2">
+              <X className="w-4 h-4" />
+              <span>X</span>
             </button>
             <button className="px-4 py-2 bg-[#4267B2] text-white rounded-lg hover:bg-blue-800 font-medium inline-flex items-center space-x-2">
               <Facebook className="w-4 h-4" />
@@ -120,6 +124,22 @@ const ButtonCollection = () => {
             <button className="px-4 py-2 bg-[#0077B5] text-white rounded-lg hover:bg-blue-700 font-medium inline-flex items-center space-x-2">
               <Linkedin className="w-4 h-4" />
               <span>LinkedIn</span>
+            </button>
+            <button className="px-4 py-2 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white rounded-lg hover:from-purple-600 hover:via-pink-600 hover:to-orange-600 font-medium inline-flex items-center space-x-2">
+              <Instagram className="w-4 h-4" />
+              <span>Instagram</span>
+            </button>
+            <button className="px-4 py-2 bg-[#FF0000] text-white rounded-lg hover:bg-red-700 font-medium inline-flex items-center space-x-2">
+              <Youtube className="w-4 h-4" />
+              <span>YouTube</span>
+            </button>
+            <button className="px-4 py-2 bg-[#25D366] text-white rounded-lg hover:bg-green-600 font-medium inline-flex items-center space-x-2">
+              <MessageCircle className="w-4 h-4" />
+              <span>WhatsApp</span>
+            </button>
+            <button className="px-4 py-2 bg-[#FF5700] text-white rounded-lg hover:bg-orange-600 font-medium inline-flex items-center space-x-2">
+              <MessageSquare className="w-4 h-4" />
+              <span>Reddit</span>
             </button>
           </ButtonCard>
 
