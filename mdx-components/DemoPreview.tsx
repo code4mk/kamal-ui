@@ -104,6 +104,16 @@ const ResponsiveLayout = ({ name, height = "200px" }) => {
 
         {/* Controls */}
         <div className="flex items-center space-x-3">
+          
+        <a 
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/demo-preview?i=${name}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1 px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+          >
+            <span>Preview</span>
+            <ExternalLink size={16} />
+          </a>
           <div className="flex items-center bg-white rounded-lg border border-gray-200 shadow-sm">
             <button 
               onClick={() => handleZoom(Math.max(50, zoom - 10))} 
@@ -133,15 +143,6 @@ const ResponsiveLayout = ({ name, height = "200px" }) => {
             }
           </button>
 
-          <a 
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/demo-preview?i=${name}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-          >
-            <span>Preview</span>
-            <ExternalLink size={16} />
-          </a>
         </div>
       </div>
 

@@ -21,6 +21,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
 }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isActiveHash, setIsActiveHash] = useState(false);
   
   // Check if current path matches this item's slug
   const isActive = router.asPath === page.slug;
@@ -37,6 +38,44 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
     }
   }, [hasActiveChild]);
 
+  // Check for active hash and scroll position
+  useEffect(() => {
+    const checkActiveState = () => {
+      const currentHash = window.location.hash.slice(1);
+      const pageSlug = page.slug.split('/').pop();
+      setIsActiveHash(currentHash === pageSlug);
+    };
+
+    const handleScroll = () => {
+      const headings = document.querySelectorAll('h1, h2');
+      const scrollPosition = window.scrollY;
+
+      for (const heading of headings) {
+        if (heading.offsetTop <= scrollPosition + 100) {
+          const id = heading.id;
+          if (id === page.slug.split('/').pop()) {
+            setIsActiveHash(true);
+            return;
+          }
+        }
+      }
+      setIsActiveHash(false);
+    };
+
+    checkActiveState();
+    handleScroll();
+
+    router.events.on('hashChangeComplete', checkActiveState);
+    router.events.on('routeChangeComplete', checkActiveState);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      router.events.off('hashChangeComplete', checkActiveState);
+      router.events.off('routeChangeComplete', checkActiveState);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [page.slug, router]);
+
   const handleToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -48,9 +87,10 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
       <div 
         className={`
           flex items-center gap-2 px-2 py-1.5 rounded-md
-          ${isActive ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'}
+          ${isActive || isActiveHash ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'}
           ${hasActiveChild ? 'text-blue-600' : ''}
           cursor-pointer text-sm transition-colors
+          ${isActiveHash ? 'goo-active' : ''}
         `}
         style={{ paddingLeft: `${level * 16 + 8}px` }}
       >
@@ -67,8 +107,8 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
           </button>
         )}
         <Link 
-          href={page.slug || '#'} 
-          className={`flex-1 ${isActive ? 'font-medium' : 'hover:text-blue-600'}`}
+          href={`${page.slug || '#'}${page.has_child ? '' : '#' + page.slug.split('/').pop()}`}
+          className={`flex-1 ${isActive || isActiveHash ? 'font-medium' : 'hover:text-blue-600'}`}
         >
           {page.title || 'Untitled'}
         </Link>
