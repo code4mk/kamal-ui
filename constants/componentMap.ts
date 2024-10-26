@@ -5,5 +5,6 @@ export const THE_COMPONENT_MAP = {
   'card-multiple-raw': 'CardsMultiRawMultiple',
   'card-single': 'CardsSingle',
   'form-product': 'FormProductEntry',
-  'table-simple': 'SimpleTableUI'
+  'table-simple': 'SimpleTableUI',
+  'buttons': 'Buttons'
 } as const;
