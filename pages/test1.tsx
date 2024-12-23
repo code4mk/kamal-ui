@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { useRowSelection } from '@/hooks/useRowSelection';
-import { useTableColumns, TableField } from '@/hooks/useTableColumns';
+import { useColumnVisibility, TableField } from '@/hooks/useColumnVisibility';
+import { useTableSort } from '@/hooks/useTableSort';
 import { Menu, Transition } from '@headlessui/react';
 import { 
   Search, 
@@ -78,7 +79,6 @@ const UserTable: React.FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sortConfig, setSortConfig] = useState<SortConfig[]>([]);
   const [columnSearch, setColumnSearch] = useState('');
   const [isColumnMenuOpen, setIsColumnMenuOpen] = useState(false);
   const columnMenuRef = useRef<HTMLDivElement>(null);
@@ -91,8 +91,14 @@ const UserTable: React.FC = () => {
     visibleFields, 
     hiddenFields, 
     toggleVisibility,
-    resetToDefault
-  } = useTableColumns(initialTableFields);
+    resetToDefault,
+  } = useColumnVisibility(initialTableFields);
+
+  const {
+    sortConfig,
+    toggleSort,
+    getSortDirection,
+  } = useTableSort();
 
   const filteredFields = useMemo(() => {
     return fields.filter(field => 
@@ -122,28 +128,6 @@ const UserTable: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  // Updated sorting function
-  const toggleSort = (path: string) => {
-    setSortConfig(prevSort => {
-      const newSort = [...prevSort];
-      const index = newSort.findIndex(item => item.key === path);
-      if (index === -1) {
-        newSort.unshift({ key: path, direction: 'asc' });
-      } else if (newSort[index].direction === 'asc') {
-        newSort[index].direction = 'desc';
-      } else {
-        newSort.splice(index, 1);
-      }
-      return newSort;
-    });
-  };
-
-  // Get current sort direction for a field
-  const getSortDirection = (path: string): 'asc' | 'desc' | 'none' => {
-    const sort = sortConfig.find(item => item.key === path);
-    return sort ? sort.direction : 'none';
-  };
 
   // Handle delete
   const handleDelete = () => {
@@ -221,17 +205,24 @@ const UserTable: React.FC = () => {
           
           <div className="flex gap-3">
             <button 
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none"
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add User
             </button>
             
             <button 
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 focus:outline-none"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               <Upload className="w-4 h-4 mr-2" />
               Import
+            </button>
+            
+            <button 
+              className="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Example Button
             </button>
           </div>
         </div>
@@ -245,13 +236,13 @@ const UserTable: React.FC = () => {
               placeholder="Search users..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-600  "
+              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
           
           <div className="flex gap-3">
             <button 
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 focus:outline-none disabled:opacity-50"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
               disabled={selectedRows.length === 0}
               onClick={handleDelete}
             >
@@ -260,7 +251,7 @@ const UserTable: React.FC = () => {
             </button>
             
             <button 
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 focus:outline-none"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               <Download className="w-4 h-4 mr-2" />
               Export
@@ -287,7 +278,7 @@ const UserTable: React.FC = () => {
               >
                 <div 
                   ref={columnMenuRef}
-                  className="absolute right-0 mt-2 w-72 origin-top-right bg-white rounded-md shadow-lg z-10 focus:outline-none"
+                  className="absolute right-0 mt-2 w-72 origin-top-right bg-white rounded-md shadow z-10 focus:outline-none"
                 >
                   <div className="px-4 py-2 border-b border-gray-200">
                     <h3 className="text-sm font-medium text-gray-900">Manage Columns</h3>
@@ -299,7 +290,7 @@ const UserTable: React.FC = () => {
                         placeholder="Search columns..."
                         value={columnSearch}
                         onChange={(e) => setColumnSearch(e.target.value)}
-                        className="w-full pl-8 pr-4 py-1 bg-gray-50 rounded-md text-sm"
+                        className="w-full pl-8 pr-4 py-1 bg-gray-50 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                       <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                       {columnSearch && (
