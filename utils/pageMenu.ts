@@ -73,6 +73,11 @@ const pages: Page[] = [
         title: "Simple table",
         slug: "/docs/table/simple-table",
         has_child: false
+      },
+      {
+        title: "Advanced table",
+        slug: "/docs/table/advanced-table",
+        has_child: false
       }
     ]
   },
